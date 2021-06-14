@@ -1,20 +1,20 @@
-CREATE DATABASE HELPDESK
-USE HELPDESK
-
 CREATE TABLE USERS (
-    idUser INT PRIMARY KEY IDENTITY (1, 1),
+    idUser INT not null generated always as identity (increment by 1),
+	isFirst BIT,
     Pass VARCHAR (250) NOT NULL,
     Username VARCHAR (250) NOT NULL,
+	primary key (idUser)
 );
 
 CREATE TABLE CLIENTES(
-	idCliente INT PRIMARY KEY IDENTITY (1,1),
+	idCliente INT not null generated always as identity (increment by 1),
 	Nombre VARCHAR (100),
-	Telefono VARCHAR (100)
+	Telefono VARCHAR (100),
+	primary key (idCliente)
 );
 
 CREATE TABLE TICKET(
-	idTicket INT PRIMARY KEY IDENTITY (1,1),
+	idTicket INT  not null generated always as identity (increment by 1),
 	Nombre VARCHAR (100),
 	Fecha DATE,
 	TipoTicket BIT,
@@ -22,14 +22,16 @@ CREATE TABLE TICKET(
 	Descripcion VARCHAR (500),
 	idCliente INT NOT NULL,
 	idUser INT NOT NULL,
+	primary key (idTicket),
 	FOREIGN KEY (idCliente) REFERENCES CLIENTES (idCliente),
 	FOREIGN KEY (idUser) REFERENCES USERS (idUser)
 );
 
 CREATE TABLE REQUERIMIENTOS(
-	idRequerimeinto INT PRIMARY KEY IDENTITY (1,1),
+	idRequerimeinto INT not null generated always as identity (increment by 1),
 	Comentario VARCHAR (500),
 	Fecha DATE,
 	idTicket INT NOT NULL,
+	primary key (idRequerimeinto),
 	FOREIGN KEY (idTicket) REFERENCES TICKET (idTicket)
 	);
