@@ -3,7 +3,7 @@ import {NextFunction, Request, Response} from "express";
 import {validate} from "class-validator";
 
 import {usuarios} from "../entity/User_entity";
-import {Permisos} from "../entity/Permission_entity";
+// import {Permisos} from "../entity/Permission_entity";
 
 class UserController {
 
@@ -26,59 +26,59 @@ class UserController {
         }
     }
 
-    async create(req: Request, res: Response) {
-        const userRepository = getRepository(usuarios);
+    // async create(req: Request, res: Response) {
+    //     const userRepository = getRepository(usuarios);
 
-        const {nombre, email, contraseña, permisos} = req.body;
+    //     const {nombre, email, contraseña, permisos} = req.body;
 
-        const user = new usuarios(nombre, email, contraseña);
+    //     const user = new usuarios(nombre, email, contraseña);
 
-        user.permisos = permisos.map( e => new Permisos(e.permisoid));
-        user.hashPassword();
+    //     user.permisos = permisos.map( e => new Permisos(e.permisoid));
+    //     user.hashPassword();
 
-        const errors = await validate(user);
-        if (errors.length > 0) return res.status(400).json(errors);
+    //     const errors = await validate(user);
+    //     if (errors.length > 0) return res.status(400).json(errors);
         
-        try {
-            await userRepository.save(user);
+    //     try {
+    //         await userRepository.save(user);
             
-            return res.status(201).json(user);
-        } catch (e) {
-            return res.status(409).json({ message: 'User already exist'});
-        }
-    }
+    //         return res.status(201).json(user);
+    //     } catch (e) {
+    //         return res.status(409).json({ message: 'User already exist'});
+    //     }
+    // }
 
-    async update(req: Request, res: Response) {
-        const userRepository = getRepository(usuarios);
+    // async update(req: Request, res: Response) {
+    //     const userRepository = getRepository(usuarios);
 
-        const {id} = req.params;
-        const {nombre, email, contraseña, permisos} = req.body;
+    //     const {id} = req.params;
+    //     const {nombre, email, contraseña, permisos} = req.body;
 
-        let user: usuarios; 
+    //     let user: usuarios; 
 
-        try {
-            user = await userRepository.findOneOrFail(id, {relations:["permisos"]});
-            user.nombre = nombre;
-            user.email = email;
-            user.contraseña = contraseña;
-            user.permisos = permisos.map( e => new Permisos(e.permisoid));
-        } catch (e) {
-            return res.status(404).json({ message: 'Not found result' });
-        }
-        if(contraseña < 30) user.hashPassword();
+    //     try {
+    //         user = await userRepository.findOneOrFail(id, {relations:["permisos"]});
+    //         user.username = username;
+    //         user.pass = pass;
+    //         user.isFirst = isFirst;
+    //         user.permisos = permisos.map( e => new Permisos(e.permisoid));
+    //     } catch (e) {
+    //         return res.status(404).json({ message: 'Not found result' });
+    //     }
+    //     if(contraseña < 30) user.hashPassword();
         
-        const errors = await validate(user);
+    //     const errors = await validate(user);
         
-        if(errors.length > 0) return res.status(400).json(errors);
+    //     if(errors.length > 0) return res.status(400).json(errors);
 
-        try {
-            await userRepository.save(user);
-        } catch (e) {
-            return res.status(409).json({ message: 'User already in use' });
-        }
+    //     try {
+    //         await userRepository.save(user);
+    //     } catch (e) {
+    //         return res.status(409).json({ message: 'User already in use' });
+    //     }
 
-        return res.status(201).json({ message: 'User update' })
-    }
+    //     return res.status(201).json({ message: 'User update' })
+    // }
 
     async remove(req: Request, res: Response) {
         const userRepository = getRepository(usuarios);

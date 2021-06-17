@@ -1,28 +1,19 @@
 {
   "name": "backend",
-  "version": "0.0.1",
-  "description": "Awesome project developed with TypeORM.",
-  "devDependencies": {
-    "@types/node": "^8.10.66",
-    "ts-node": "3.3.0",
-    "typescript": "3.3.3333"
-  },
-  "dependencies": {
-    "bcrypt": "^5.0.1",
-    "body-parser": "^1.19.0",
-    "class-validator": "^0.13.1",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "helmet": "^4.4.1",
-    "pg": "^8.6.0",
-    "reflect-metadata": "^0.1.10",
-    "typeorm": "0.2.31"
-  },
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
     "start": "ts-node src/index.ts",
-    "dev": "set debug=* && ts-node-dev --respawn --transpileOnly ./src/index.ts"
+    "dev": "nodemon src/index.js"
   },
-  "main": "index.js",
-  "author": "Efren Hazaar",
-  "license": "ISC"
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
 }
