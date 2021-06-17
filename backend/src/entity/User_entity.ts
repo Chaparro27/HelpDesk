@@ -5,10 +5,10 @@ import * as bcrypt from "bcrypt";
 @Entity()
 export class usuarios {
 
-    constructor(username, pass, isFirst) {
+    constructor(username, pass) {
         this.username = username;
         this.pass = pass;
-        this.isFirst = isFirst;
+        this.isFirst = true;
     }
 
     @PrimaryGeneratedColumn()

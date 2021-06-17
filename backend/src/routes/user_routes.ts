@@ -6,8 +6,8 @@ const userController = new UserController();
 
 router.get('/', userController.all);
 router.get('/:id', userController.one);
-// router.post('/create', userController.create);
-// router.put('/update/:id', userController.update);
+router.post('/create', userController.create);
+router.put('/update/:id', userController.update);
 router.delete('/remove/:id', userController.remove);
 
 export default router;
