@@ -2,96 +2,86 @@ import {getRepository} from "typeorm";
 import {NextFunction, Request, Response} from "express";
 import {validate} from "class-validator";
 
-import {usuarios} from "../entity/User_entity";
+import {requerimientos} from "../entity/Requerimientos_entity";
 // import {Permisos} from "../entity/Permission_entity";
 
 class RequerimientosController {
 
     async all(req: Request, res: Response) {
-        const userRepository = getRepository(usuarios);
-        let users = await userRepository.find({ relations: ["permisos"] });
-        return res.send(users);
+        const requerimientosRepository = getRepository(requerimientos);
+        let requerimiento = await requerimientosRepository.find({ relations: ["permisos"] });
+        return res.send(requerimiento);
     }
 
     async one(req: Request, res: Response) {
         const {id} = req.params;
         
-        const userRepository = getRepository(usuarios);
+        const requerimientosRepository = getRepository(requerimientos);
 
         try {
-            const user = await userRepository.findOneOrFail(id, { relations: ["permisos"] });
-            return res.send(user);
+            const requerimientos = await requerimientosRepository.findOneOrFail(id, { relations: ["permisos"] });
+            return res.send(requerimientos);
         } catch (e) {
             return res.status(404).json({ message: 'Nor result'});
         }
     }
 
-    // async create(req: Request, res: Response) {
-    //     const userRepository = getRepository(usuarios);
+    async create(req: Request, res: Response){
+        const requerimientosRepository = getRepository(requerimientos);
 
-    //     const {nombre, email, contraseña, permisos} = req.body;
+        const {nombre, comentario, fecha} = req.body;
+        const requerimiento = new requerimientos(nombre, comentario, fecha);
 
-    //     const user = new usuarios(nombre, email, contraseña);
-
-    //     user.permisos = permisos.map( e => new Permisos(e.permisoid));
-    //     user.hashPassword();
-
-    //     const errors = await validate(user);
-    //     if (errors.length > 0) return res.status(400).json(errors);
-        
-    //     try {
-    //         await userRepository.save(user);
+        try {
+            await requerimientosRepository.save(requerimiento);
             
-    //         return res.status(201).json(user);
-    //     } catch (e) {
-    //         return res.status(409).json({ message: 'User already exist'});
-    //     }
-    // }
+            return res.status(201).json(requerimientos);
+        } catch (e) {
+            return res.status(409).json({ message: 'Error 404'});
+        }
 
-    // async update(req: Request, res: Response) {
-    //     const userRepository = getRepository(usuarios);
+    }
 
-    //     const {id} = req.params;
-    //     const {nombre, email, contraseña, permisos} = req.body;
+    async update(req: Request, res: Response) {
+        const requerimientosRepository = getRepository(requerimientos);
 
-    //     let user: usuarios; 
+        const {id} = req.params;
+        const {nombre, comentario, fecha} = req.body;
 
-    //     try {
-    //         user = await userRepository.findOneOrFail(id, {relations:["permisos"]});
-    //         user.username = username;
-    //         user.pass = pass;
-    //         user.isFirst = isFirst;
-    //         user.permisos = permisos.map( e => new Permisos(e.permisoid));
-    //     } catch (e) {
-    //         return res.status(404).json({ message: 'Not found result' });
-    //     }
-    //     if(contraseña < 30) user.hashPassword();
-        
-    //     const errors = await validate(user);
-        
-    //     if(errors.length > 0) return res.status(400).json(errors);
+        let requerimiento: requerimientos; 
 
-    //     try {
-    //         await userRepository.save(user);
-    //     } catch (e) {
-    //         return res.status(409).json({ message: 'User already in use' });
-    //     }
+        try {
+            requerimiento = await requerimientosRepository.findOneOrFail(id);
+            requerimiento.nombre = nombre;
+            requerimiento.comentario = fecha;
+            requerimiento.fecha = fecha;
 
-    //     return res.status(201).json({ message: 'User update' })
-    // }
+        } catch (e) {
+            return res.status(404).json({ message: 'Not found result' });
+        }
+
+
+        try {
+            await requerimientosRepository.save(requerimiento);
+        } catch (e) {
+            return res.status(409).json({ message: 'User already in use' });
+        }
+
+        return res.status(201).json({ message: 'User update' })
+    }
 
     async remove(req: Request, res: Response) {
-        const userRepository = getRepository(usuarios);
+        const requerimientosRepository = getRepository(requerimientos);
         const {id} = req.params;
-        let user: usuarios;
+        let requerimiento: requerimientos;
         try {
-            user = await userRepository.findOneOrFail(id, { relations: ["permisos"]});
-            await userRepository.remove(user);
+            requerimiento = await requerimientosRepository.findOneOrFail(id);
+            await requerimientosRepository.remove(requerimiento);
         } catch (e) {
             return res.status(404).json({ message: 'Not found result'});
         }
 
-        return res.status(201).json({ message: 'User deleted' });
+        return res.status(201).json({ message: 'Requerimiento deleted' });
     }
 
 }

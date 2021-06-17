@@ -66,7 +66,7 @@ class ClientesController {
             return res.status(409).json({ message: 'User already in use' });
         }
 
-        return res.status(201).json({ message: 'User update' })
+        return res.status(201).json({ message: 'Client update' })
     }
 
     async remove(req: Request, res: Response) {
