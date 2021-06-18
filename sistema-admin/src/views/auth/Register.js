@@ -32,7 +32,7 @@ import { Post } from "actions/persistenceActions";
 
 const useStyles = makeStyles(componentStyles);
 
-function Register() {
+function Register({history}) {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -58,8 +58,9 @@ function Register() {
   });
 
 
-  const onSubmit = data => {
-    let password = Post("user/create", data)
+  const onSubmit = async(data) => {
+    let password = await Post("user/create", data);
+    reset(defaultValues);
     Swal.fire({
       title: "Se a registrado correctamente su contrasña es:",
       text: password,
@@ -69,10 +70,7 @@ function Register() {
       hideClass: {
         popup: 'animate__animated animate__fadeOutUp'
       }
-    })
-    ;
-
-    // reset(defaultValues);
+    }).then((result) => history.goBack());
   }
 
   return (

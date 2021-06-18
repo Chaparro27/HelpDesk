@@ -22,6 +22,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { useCookies } from 'react-cookie';
 
 // core components
 import componentStyles from "assets/theme/views/auth/login.js";
@@ -32,6 +33,8 @@ const useStyles = makeStyles(componentStyles);
 function Login() {
   const classes = useStyles();
   const theme = useTheme();
+
+  const [cookies, setCookie] = useCookies(['c_user']);
 
   const defaultValues = {
     username: "",
@@ -49,10 +52,11 @@ function Login() {
   }); 
 
 
-  const onSubmit = data => {
-    // console.log(data)
-    Post( "auth/login", data );
-    // reset(defaultValues);
+  const onSubmit = async(data) => {
+    let datas = await Post( "auth/login", data );
+    datas.isLogged =  true;
+    setCookie('c_user', datas, { path:'/', expires: new Date(Date.now()+ 1*60*24*365*365*365) })
+    reset(defaultValues);
   }
 
   return (
