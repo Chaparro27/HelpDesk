@@ -8,6 +8,7 @@ import {tickets} from "../entity/Ticket_entity";
 class TicketsController {
 
     async all(req: Request, res: Response) {
+
         const ticketsRepository = getRepository(tickets);
         let ticket = await ticketsRepository.find();
         return res.send(ticket);
@@ -29,7 +30,7 @@ class TicketsController {
     async create(req: Request, res: Response){
         const ticketsRepository = getRepository(tickets);
 
-        const {nombre, fecha, tipoTicket, status, descripcion} = req.body;
+        const {nombre, fecha, tipoTicket, status,  descripcion} = req.body;
         const ticket = new tickets(nombre, fecha, tipoTicket, status, descripcion);
 
         try {
@@ -37,7 +38,7 @@ class TicketsController {
             
             return res.status(201).json(ticket);
         } catch (e) {
-            return res.status(409).json({ message: 'Error 404'});
+            return res.status(404).json({ message: 'Error 404'});
         }
 
     }
@@ -74,7 +75,7 @@ class TicketsController {
     async remove(req: Request, res: Response) {
         const ticketsRepository = getRepository(tickets);
         const {id} = req.params;
-        
+
         let ticket: tickets; 
 
         try {
