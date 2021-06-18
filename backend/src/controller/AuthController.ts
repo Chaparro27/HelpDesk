@@ -46,7 +46,7 @@ class AuthController {
         if(user.isFirst) { 
             user.isFirst = false;
             user.pass = pass;
-            
+            user.hashPassword();
             const errors = await validate(user);
         
             if(errors.length > 0) return res.status(400).json(errors);

@@ -70,12 +70,10 @@ const ModalIsFirst = () => {
     });
 
     const onSubmit = data => {
-        console.log("SDADSASDASDASDSD______")
-        // Post("auth/isfirst", data);
-        // cookies.c_user.isFirst = false;
-        // let datas = cookies.c_user;
-        // setCookie('c_user', datas, { path:'/', expires: new Date(Date.now()+ 1*60*24*365*365*365) });
-        // reset(defaultValues);
+        Post("auth/isfirst", data);
+        cookies.c_user.isFirst = false;
+        setCookie('c_user', cookies.c_user, { path:'/', expires: new Date(Date.now()+ 1*60*24*365*365*365) });
+        reset(defaultValues);
     }
     return (
         <>

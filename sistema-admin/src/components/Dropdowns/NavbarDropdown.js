@@ -37,6 +37,10 @@ export default function NavbarDropdown() {
     setAnchorEl(null);
   };
 
+  const Logout = ( ) => {
+    removeCookie('c_user',{ path: "/"});
+  };
+
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -116,7 +120,7 @@ export default function NavbarDropdown() {
         display="flex!important"
         alignItems="center!important"
         component={MenuItem}
-        onClick={ () => removeCookie('c_user')}
+        onClick={Logout}
       >
         <Box
           component={DirectionsRun}
