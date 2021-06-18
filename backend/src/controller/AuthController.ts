@@ -22,8 +22,6 @@ class AuthController {
         } catch (e) {
             return res.status(404).json({ message: 'Nor result'});
         }
-        
-        if(user.isFirst) return res.send(user.isFirst);
 
         if(!user.checkPassword(pass)) return res.status(400).json({ message: 'Password incorrect' })
         

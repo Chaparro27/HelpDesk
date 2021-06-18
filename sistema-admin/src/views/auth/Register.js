@@ -24,9 +24,11 @@ import { ErrorMessage } from '@hookform/error-message';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
+import Swal from 'sweetalert2'
 
 // core components
 import componentStyles from "assets/theme/views/auth/register.js";
+import { Post } from "actions/persistenceActions";
 
 const useStyles = makeStyles(componentStyles);
 
@@ -57,9 +59,20 @@ function Register() {
 
 
   const onSubmit = data => {
-    console.log(data)
-    // dispatch( CreatingWithImage( "client/create/", data, formdata ) );
-    reset(defaultValues);
+    let password = Post("user/create", data)
+    Swal.fire({
+      title: "Se a registrado correctamente su contrasña es:",
+      text: password,
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      }
+    })
+    ;
+
+    // reset(defaultValues);
   }
 
   return (

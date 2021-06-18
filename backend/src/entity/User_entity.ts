@@ -3,6 +3,7 @@ import {MinLength, IsNotEmpty } from "class-validator";
 import * as bcrypt from "bcrypt";
 
 @Entity()
+@Unique(["username", "email"])
 export class usuarios {
 
     constructor(username, pass, name, email) {

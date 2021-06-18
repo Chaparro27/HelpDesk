@@ -25,6 +25,7 @@ import * as yup from 'yup';
 
 // core components
 import componentStyles from "assets/theme/views/auth/login.js";
+import { Post } from "actions/persistenceActions";
 
 const useStyles = makeStyles(componentStyles);
 
@@ -32,7 +33,6 @@ function Login() {
   const classes = useStyles();
   const theme = useTheme();
 
-  
   const defaultValues = {
     username: "",
     pass: "",
@@ -50,9 +50,9 @@ function Login() {
 
 
   const onSubmit = data => {
-    console.log(data)
-    // dispatch( CreatingWithImage( "client/create/", data, formdata ) );
-    reset(defaultValues);
+    // console.log(data)
+    Post( "auth/login", data );
+    // reset(defaultValues);
   }
 
   return (
