@@ -12,9 +12,7 @@ import {
     TextField, 
     Select, MenuItem 
 } from '@material-ui/core';
-
-import PhotoCamera from '@material-ui/icons/PhotoCamera';
-
+import { CreateClient } from '../../actions/clientesActions';
 import { Controller, useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -66,27 +64,18 @@ const useStyles = makeStyles( theme => ({
     },
 }));
 
-const ModalCliente = () => {
+const ModalCliente = ( {handleModalClose} ) => {
    
     const classes = useStyles();
     
     const defaultValues = {
-        Image: "",
-        Clientname: "",
-        rfc: "",
-        cellphone: "",
-        address: "",
-        socialreason: "",
-        country: "",
-        city: "",
-        cp: "",
+        nombre: "",
+        telefono: "",
     };
     const schema = yup.object().shape({
-        Clientname: yup.string().required('Client Name is required'),
-        rfc: yup.string().required('RFC is required'),
-        socialreason: yup.string().required('Social reason is required'),
-        cellphone: yup.string() 
-            .notRequired()
+        nombre: yup.string().required('nombre es requerido'),
+        telefono: yup.string().required('numero es requerido'),
+        // notRequired()
             // .matches(/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/, 'Phone number is not valid')
     });
     const { handleSubmit, formState: { errors } , control, reset } = useForm({
@@ -97,164 +86,50 @@ const ModalCliente = () => {
 
     const onSubmit = data => {
         console.log(data)
-        const formdata = new FormData();
-        if(data.Image.length !== 0){
-            formdata.append("file", data.Image);
-            data.Image = data.Image[0];
-        } else {
-
-        }
-        const json = JSON.stringify(data);
-        formdata.append("data", json);
-        // dispatch( CreatingWithImage( "client/create/", data, formdata ) );
-        reset(defaultValues);
-        // handleModalClose();
+        CreateClient(data, 'clients/create')
     }
-    const CHARACTER_LIMIT = 200;
 
-    let source = ""
-    const countrys = ["México", "USA"]
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)} className={classes.root} autoComplete="off">
-                <Grid container spacing={1}>
-                    <Grid item xs={12}>
+                <Grid container spacing={3} md={4}>
+                    <Grid item xs={12} >
                         <Typography variant="h4" gutterBottom className={classes.center}>
-                            Formulario Client
+                            Registro cliente
                         </Typography>
                         <Divider />
                     </Grid>
                     <Grid container className={classes.form}>
                         <Grid container item xs={12} spacing={3}>
-                            <Grid item xs={12} md={4}>
+                            <Grid item xs={12}>
                                 <FormControl className={classes.inputs} >
                                     <Controller
-                                        name="Clientname"
+                                        name="nombre"
                                         control={control}
                                         render={({field}) => 
                                             <TextField
+                                                onChange={(e) => field.onChange(field.value = e.target.value) }
                                                 variant="outlined"
-                                                helperText={<ErrorMessage errors={errors} name="Clientname" as="span" />}
-                                                label="Client Name"
+                                                helperText={<ErrorMessage errors={errors} name="nombre" as="span" />}
+                                                label="Nombre del cliente"
                                             />
                                         } />
                                 </FormControl>
                             </Grid>
-                            <Grid item xs={12} md={4}>
+                            <Grid item xs={12}>
                                 <FormControl className={classes.inputs} >
                                     <Controller
-                                        name="rfc"
+                                        name="telefono"
                                         control={control}
                                         render={({field}) => 
                                             <TextField
+                                                onChange={(e) => field.onChange(field.value = e.target.value) }
                                                 variant="outlined"
-                                                helperText={<ErrorMessage errors={errors} name="rfc" as="span" />}
-                                                label="RFC" />
+                                                helperText={<ErrorMessage errors={errors} name="numero" as="span" />}
+                                                label="Numero telefonico" />
                                         }
                                     />
                                 </FormControl>
-                            </Grid>
-                            <Grid item xs={12} md={4}>
-                                <FormControl className={classes.inputs}>
-                                    <Controller
-                                        name="cellphone"
-                                        control={control}
-                                        render={({field}) => 
-                                            <TextField
-                                                variant="outlined"
-                                                helperText={<ErrorMessage errors={errors} name="cellphone" as="span" />}
-                                                label="Phone number" />
-                                        }
-                                    />
-                                </FormControl>
-                            </Grid>
-                            <Grid item xs={12} md={12}>
-                                <FormControl className={classes.inputs} >
-                                    <Controller
-                                        name="address"
-                                        control={control}
-                                        render={({field}) => 
-                                            <TextField
-                                                variant="outlined"
-                                                helperText={<ErrorMessage errors={errors} name="address" as="span" />}
-                                                label="Address" />
-                                        }
-                                    />
-                                </FormControl>
-                            </Grid>
-                            <Grid item xs={12} md={6}>
-                                <FormControl className={classes.inputs}>
-                                    <InputLabel shrink>Social reason:</InputLabel>
-                                    <Controller
-                                        name="socialreason"
-                                        control={control}
-                                        render={({field}) =>  (
-                                            <TextField
-                                                placeholder="Social reason"
-                                                onChange={(e) => field.onChange(source = e.target.value)}
-                                                multiline
-                                                rows={6}
-                                                inputProps={{
-                                                    maxLength: CHARACTER_LIMIT
-                                                }}
-                                                value={field.value}
-                                                margin="normal"
-                                            />
-
-                                        )}
-                                    />
-                                    <FormHelperText className={classes.error}>
-                                        {`${source.length}/${CHARACTER_LIMIT}`}
-                                        <ErrorMessage errors={errors} name="socialreason" as="span" />
-                                    </FormHelperText>
-                                </FormControl>
-                            </Grid>
-                            <Grid container item xs={12} md={6} spacing={1}>
-                                <Grid item xs={12}>
-                                    <FormControl className={classes.select}>
-                                        <InputLabel shrink>Country:</InputLabel>
-                                        <Controller
-                                            name="country"
-                                            control={control}
-                                            render={({field}) => 
-                                                <Select>
-                                                    <MenuItem value="">Select a country</MenuItem>
-                                                    {countrys.map(country => (<MenuItem key={country} value={country}>{country}</MenuItem>))}
-                                                </Select>
-                                            }
-                                        />
-                                    </FormControl>
-                                </Grid>
-                                <Grid item xs={12} md={6}>
-                                    <FormControl className={classes.inputs}>
-                                        <Controller
-                                            name="city"
-                                            control={control}
-                                            render={({field}) => 
-                                                <TextField
-                                                    variant="outlined"
-                                                    className={classes.error}
-                                                    helperText={<ErrorMessage errors={errors} name="city" as="span" />}
-                                                    label="City" />
-                                            }
-                                        />
-                                    </FormControl>
-                                </Grid>
-                                <Grid item xs={12} md={6}>
-                                    <FormControl className={classes.inputs}>
-                                        <Controller
-                                            name="cp"
-                                            control={control}
-                                            render={({field}) => 
-                                                <TextField
-                                                    variant="outlined"
-                                                    className={classes.error}
-                                                    helperText={<ErrorMessage errors={errors} name="cp" as="span" />}
-                                                    label="Postal code" />
-                                            }
-                                        />
-                                    </FormControl>
-                                </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
@@ -263,8 +138,9 @@ const ModalCliente = () => {
                             className={classes.buttonSave}
                             variant="contained"
                             color="primary"
-                            type="submit" >
-                            Save Changes
+                            type="submit"
+                            onClick={handleModalClose} >
+                            Agregar
                     </Button>
                     </Grid>
                 </Grid>
