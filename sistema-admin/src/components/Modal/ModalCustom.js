@@ -54,7 +54,7 @@ const ModalCustom = ({
                 disableAutoFocus
                 disableBackdropClick
                 disableRestoreFocus
-                // disableScrollLock
+                disableScrollLock
                 BackdropComponent={ Backdrop }
                 BackdropProps={{
                     timeout: 500,

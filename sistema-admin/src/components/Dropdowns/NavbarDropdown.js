@@ -1,4 +1,5 @@
 import React from "react";
+import { useCookies } from 'react-cookie';
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
@@ -24,6 +25,7 @@ const useStyles = makeStyles(componentStyles);
 export default function NavbarDropdown() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [cookies,setCookie, removeCookie] = useCookies(['c_user']);
 
   const isMenuOpen = Boolean(anchorEl);
 
@@ -114,7 +116,7 @@ export default function NavbarDropdown() {
         display="flex!important"
         alignItems="center!important"
         component={MenuItem}
-        onClick={handleMenuClose}
+        onClick={ () => removeCookie('c_user')}
       >
         <Box
           component={DirectionsRun}
@@ -148,7 +150,7 @@ export default function NavbarDropdown() {
             root: classes.avatarRoot,
           }}
         />
-        <Hidden smDown>Efren Herrera</Hidden>
+        <Hidden smDown>{cookies.c_user.name}</Hidden>
       </Button>
       {renderMenu}
     </>

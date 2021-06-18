@@ -1,5 +1,6 @@
 import React from "react";
 import { useLocation, Route, Switch, Redirect } from "react-router-dom";
+import { useCookies } from 'react-cookie';
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
@@ -21,13 +22,17 @@ import NavbarDropdown from "components/Dropdowns/NavbarDropdown.js";
 import routes from "routes.js";
 
 import componentStyles from "assets/theme/layouts/admin.js";
+import ModalCustom from "components/Modal/ModalCustom";
+import ModalIsFirst from "components/Modal/ModalIsFirst";
 
 const useStyles = makeStyles(componentStyles);
 
 const Admin = () => {
   const classes = useStyles();
   const location = useLocation();
+  const [cookies] = useCookies(['c_user']);
 
+  // console.log(cookies.c_user)
   React.useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
@@ -111,6 +116,17 @@ const Admin = () => {
         />
         <Box position="relative" className={classes.mainContent}>
           <AdminNavbar brandText={getBrandText(location.pathname)} />
+          
+          {
+            cookies.c_user.isFirst 
+              ? <ModalCustom 
+                  // handleModalClose={ handleModalClose }
+                  openModal={ true }
+                  component={ ModalIsFirst }
+                /> 
+              : null
+          }
+
           <Header pathname={getBrandText(location.pathname)}/>
           <Switch>
             {getRoutes(routes)}

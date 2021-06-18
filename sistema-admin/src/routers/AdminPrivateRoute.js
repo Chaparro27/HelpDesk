@@ -21,7 +21,6 @@ const AdminPrivateRoute = ({
 
 AdminPrivateRoute.propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
-    adminUser: PropTypes.bool.isRequired,
 }
 
 export default AdminPrivateRoute;
