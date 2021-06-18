@@ -1,5 +1,5 @@
-import React from 'react';
-
+import React, {useEffect, useState }from 'react';
+import { useForm } from "react-hook-form";
 // @material-ui/core components
 import { 
     Box, 
@@ -11,12 +11,13 @@ import {
     CardContent,
     Typography
 } from '@material-ui/core';
-
+import { GetClients,DeleteClients } from '../../actions/clientesActions';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+
 
 const useStyles = makeStyles((theme) =>({
     cardContainer:{
-        margin: theme.spacing(1.5)
+        margin: theme.spacing(2.5),
     },
     buttonDelete:{
         position: 'absolute',
@@ -45,18 +46,22 @@ const useStyles = makeStyles((theme) =>({
     },
 }));
 const CardClient = ({ item, isDelete }) => {
-    const classes = useStyles();
 
-    const handleDelete = ( id ) => (e) => {
-        e.preventDefault();
+
+    const classes = useStyles();
+    const handleDelete = (id) => {
+        DeleteClients(`clients/remove/${id}`)
     }
     return (
         <div className={classes.cardContainer}>
-            <CardActionArea>
+                                {/* {
+           data.map((column, index) => (
+           <> */}
+            <CardActionArea key={item}>
                 <Card>
                     {
                         (isDelete)
-                            ?   <IconButton size="medium" className={ classes.buttonDelete } onClick={ handleDelete(item.id) }>
+                            ?   <IconButton size="medium" className={ classes.buttonDelete} onClick={ e => handleDelete(item.idCliente)}>
                                     <RemoveCircleIcon className={ classes.imgDelete }/>
                                 </IconButton> 
                             :   null  
@@ -71,7 +76,7 @@ const CardClient = ({ item, isDelete }) => {
                                 fontSize="1.3rem"
                             >
                                 <Box fontSize="80%" fontWeight="400" component="small">
-                                    Grupo Dags
+                                    Información cliente
                                 </Box>
                             </Box>
                         } 
@@ -83,23 +88,21 @@ const CardClient = ({ item, isDelete }) => {
                             fontSize: "1.3rem!important",
                         }}
                     >
+                        
                     </CardHeader>
                     <CardContent>
                         <Typography  className={classes.name}>
-                            Telefono: 9999955764
+                        {item.nombre}
                         </Typography>
                         <Typography  className={classes.name}>
-                            Email: efrenhhi@gmail.com
-                        </Typography>
-                        <Typography  className={classes.name}>
-                            creado: 16/05/1998
-                        </Typography>
-                        <Typography  className={classes.name}>
-                            Trabajos: 5
+                        {item.telefono}
                         </Typography>
                     </CardContent>
                 </Card>  
             </CardActionArea>          
+          {/* </> 
+          ))
+          } */}
         </div>
     );
 }

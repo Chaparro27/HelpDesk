@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { GetClients,DeleteClients } from '../../actions/clientesActions';
 // @material-ui/core components
 import { 
     GridList, 
@@ -37,7 +38,7 @@ const ListCustom = ({
     ...props
 }) => {
     const classes = useStyles();
-
+    const [data, setData] = useState([]);
     const [ isDelete, setIsDelete ] = useState(false); 
     const [ 
         isSearch, 
@@ -53,7 +54,13 @@ const ListCustom = ({
     // useEffect(() => {
     //     handleSetData( state, search )
     // }, [search, handleSetData, state]);
-
+    useEffect(() => {
+        const fetchData = async () => {
+          const resp = await GetClients('clients/');
+          setData(resp);        
+        }
+        fetchData();
+      }, []); 
     const handleDeleting = (event) => {
         event.preventDefault();
         setIsDelete(!isDelete)    
@@ -76,7 +83,6 @@ const ListCustom = ({
         cols = 5;
     }
 
-    let data = [ 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 ]
     return(
         <>
             <Container 
@@ -84,7 +90,7 @@ const ListCustom = ({
                 component={Box}
                 marginTop={ isWidthUp('md', props.width) ? "-17rem" :"-22rem"}
                 className={ classes.root }>
-                <ToolBarCustom handleDeleting={handleDeleting} handleModalopen={handleModalopen}/>
+                <ToolBarCustom handleDeleting={handleDeleting} handleModalClose={handleModalClose} handleModalopen={handleModalopen}/>
                 <GridList cellHeight={ 'auto' } cols={cols} className={ classes.cardsContainer }>
                     {
                         data.map((item, index) => (

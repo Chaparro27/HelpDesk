@@ -13,7 +13,7 @@ import FilterDropdown from 'components/Dropdowns/FilterDropdown';
 
 const useStyles = makeStyles(componentStyles);
 
-const ToolBarCustom = ({ handleDeleting, handleModalopen, handleChange, ChangeStatusButtons }) => {
+const ToolBarCustom = ({ handleDeleting, handleModalopen,handleModalClose, handleChange, ChangeStatusButtons }) => {
     const classes = useStyles();
 
     return (
@@ -24,6 +24,7 @@ const ToolBarCustom = ({ handleDeleting, handleModalopen, handleChange, ChangeSt
                         <IconButton
                             edge="start"
                             onClick={ handleModalopen }
+                            handleModalClose ={handleModalClose}
                             className={ classes.buttons }
                             color="inherit" >
                             <AddCircleIcon  className={ classes.addicon } />
