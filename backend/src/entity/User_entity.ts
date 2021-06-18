@@ -5,9 +5,11 @@ import * as bcrypt from "bcrypt";
 @Entity()
 export class usuarios {
 
-    constructor(username, pass) {
+    constructor(username, pass, name, email) {
         this.username = username;
         this.pass = pass;
+        this.name = name;
+        this.email = email;
         this.isFirst = true;
     }
 
@@ -21,6 +23,14 @@ export class usuarios {
     @Column()
     @IsNotEmpty()
     pass: string;
+
+    @Column()
+    @IsNotEmpty()
+    name: string;
+
+    @Column()
+    @IsNotEmpty()
+    email: string;
 
     @Column()
     @IsNotEmpty()
