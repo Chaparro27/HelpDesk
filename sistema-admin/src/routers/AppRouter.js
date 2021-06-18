@@ -11,7 +11,6 @@ import AuthLayout from "layouts/Auth.js";
 const AppRouter = () => {
     
     const [cookies] = useCookies(['c_user'])
-    console.log(cookies.c_user);
             // <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
             // <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
             // <Redirect from="/" to="/admin/index" />

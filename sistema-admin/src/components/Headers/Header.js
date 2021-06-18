@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import { useTheme } from "@material-ui/core/styles";
@@ -17,10 +17,9 @@ import PieChart from "@material-ui/icons/PieChart";
 import CardStats from "components/Cards/CardStats.js";
 
 import componentStyles from "assets/theme/components/header.js";
-
 const useStyles = makeStyles(componentStyles);
 
-const Header = ({pathname}) => {
+const Header = ({pathname, users}) => {
   const classes = useStyles();
   const theme = useTheme();
   return (
@@ -39,7 +38,7 @@ const Header = ({pathname}) => {
                     <Grid item sm={6} md={4} xs={12}>
                       <CardStats
                         subtitle="Usuarios"
-                        title="100"
+                        title={users.length}
                         icon={InsertChartOutlined}
                         color="bgError"
                         footer={

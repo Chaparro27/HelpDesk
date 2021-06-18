@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation, Route, Switch, Redirect } from "react-router-dom";
 import { useCookies } from 'react-cookie';
 // @material-ui/core components
@@ -24,6 +24,7 @@ import routes from "routes.js";
 import componentStyles from "assets/theme/layouts/admin.js";
 import ModalCustom from "components/Modal/ModalCustom";
 import ModalIsFirst from "components/Modal/ModalIsFirst";
+import { Get } from "actions/persistenceActions";
 
 const useStyles = makeStyles(componentStyles);
 
@@ -31,11 +32,15 @@ const Admin = () => {
   const classes = useStyles();
   const location = useLocation();
   const [cookies] = useCookies(['c_user']);
+  const [listusers, setListusers] = useState([]);
 
-  // console.log(cookies.c_user)
   React.useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
+    const users = async () => {
+      await Get("user/").then(result => setListusers(result));
+    };
+    users();
   }, [location]);
 
   const getRoutes = (routes) => {
@@ -127,7 +132,9 @@ const Admin = () => {
               : null
           }
 
-          <Header pathname={getBrandText(location.pathname)}/>
+          <Header 
+            pathname={getBrandText(location.pathname)}  
+            users={listusers}/>
           <Switch>
             {getRoutes(routes)}
             <Redirect from="*" to="/admin/index" /> 

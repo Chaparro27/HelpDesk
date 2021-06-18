@@ -11,6 +11,16 @@ export const ChargeData = ( url ) => {
     }
 }
 
+
+export const Get = ( url ) => {
+    return Axios.get(BaseUrl + url).then( resp => {
+        return resp.data
+    }).catch( (error) => {
+        return error
+    });
+    
+}
+
 export const Post = async( url, data ) => {
     return await Axios.post(BaseUrl + url, data).then( resp => {
         return resp.data
