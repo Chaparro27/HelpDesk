@@ -3,6 +3,7 @@ import {NextFunction, Request, Response} from "express";
 import {validate} from "class-validator";
 
 import {usuarios} from "../entity/User_entity";
+import makeid from "../helpers/RandomPassword";
 
 class UserController {
 
@@ -28,9 +29,10 @@ class UserController {
     async create(req: Request, res: Response) {
         const userRepository = getRepository(usuarios);
 
-        const { username, pass } = req.body;
+        const { username, name, email } = req.body;
 
-        const user = new usuarios(username, pass);
+        const password = makeid(5);
+        const user = new usuarios(username, password, name, email);
 
         user.hashPassword();
 
@@ -40,7 +42,7 @@ class UserController {
         try {
             await userRepository.save(user);
             
-            return res.status(201).json(user);
+            return res.status(201).json(password);
         } catch (e) {
             return res.status(409).json({ message: 'User already exist'});
         }
