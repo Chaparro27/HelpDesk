@@ -6,7 +6,7 @@ import {MinLength, IsNotEmpty } from "class-validator";
 export class clientes {
 
     constructor(nombre, telefono) {
-        this.nombre = nombre;
+        this.nombreClient = nombre;
         this.telefono = telefono;
     }
 
@@ -16,7 +16,7 @@ export class clientes {
     @Column()
     @MinLength(5)
     @IsNotEmpty()
-    nombre: string;
+    nombreClient: string;
 
     @Column()
     @IsNotEmpty()

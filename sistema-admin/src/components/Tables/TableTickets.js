@@ -5,7 +5,7 @@ import { GetClients,DeleteClients } from '../../actions/clientesActions';
 
 const  TableTickets = () => {
   const {IDequipo} = useParams()
-  const [equipos, setEquipos] = React.useState()
+  const [equipos, setEquipos] = React.useState([])
   const columns = [
     {
       title: "ID",
@@ -22,13 +22,26 @@ const  TableTickets = () => {
     {
         title: "Status",
         field: "tipoTicket"
+      },
+      {
+        title: "Cliente",
+        field: "clientes.nombreClient"
+      },
+      {
+        title: "Encargado",
+        field: "usuarios.name"
       }
   ];
 
   useEffect(() => {
     const fetchData = async () => {
+        const arr = [{}]
       const resp = await GetClients('tickets/');
-      setEquipos(resp);        
+    //   const resp2 = await GetClients('clients/'); 
+    //   arr.push(resp)
+    //   arr.push(resp2)
+      setEquipos(resp);
+      console.log(resp);        
     }
     fetchData();
   }, []); 

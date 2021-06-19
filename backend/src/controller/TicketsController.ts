@@ -3,6 +3,7 @@ import {NextFunction, Request, Response} from "express";
 import {validate} from "class-validator";
 
 import {tickets} from "../entity/Ticket_entity";
+import {clientes} from "../entity/Clientes_entity";
 // import {Permisos} from "../entity/Permission_entity";
 
 class TicketsController {
@@ -10,13 +11,12 @@ class TicketsController {
     async all(req: Request, res: Response) {
 
         const ticketsRepository = getRepository(tickets);
-        let ticket = await ticketsRepository.find();
+        let ticket = await ticketsRepository.find({ relations: ["clientes", "usuarios"] });
         return res.send(ticket);
     }
 
     async one(req: Request, res: Response) {
-        const {id} = req.params;
-        
+        const {id} = req.params;       
         const ticketsRepository = getRepository(tickets);
 
         try {

@@ -92,7 +92,7 @@ const CardClient = ({ item, isDelete }) => {
                     </CardHeader>
                     <CardContent>
                         <Typography  className={classes.name}>
-                        {item.nombre}
+                        {item.nombreClient}
                         </Typography>
                         <Typography  className={classes.name}>
                         {item.telefono}

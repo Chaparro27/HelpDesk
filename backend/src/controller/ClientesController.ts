@@ -29,8 +29,8 @@ class ClientesController {
     async create(req: Request, res: Response){
         const clientesRepository = getRepository(clientes);
 
-        const {nombre, telefono} = req.body;
-        const client = new clientes(nombre, telefono);
+        const {nombreClient, telefono} = req.body;
+        const client = new clientes(nombreClient, telefono);
 
         try {
             await clientesRepository.save(client);
@@ -46,13 +46,13 @@ class ClientesController {
         const clientesRepository = getRepository(clientes);
 
         const {id} = req.params;
-        const {nombre, telefono} = req.body;
+        const {nombreClient, telefono} = req.body;
 
         let cliente: clientes; 
 
         try {
             cliente = await clientesRepository.findOneOrFail(id);
-            cliente.nombre = nombre;
+            cliente.nombreClient = nombreClient;
             cliente.telefono = telefono;
 
         } catch (e) {
