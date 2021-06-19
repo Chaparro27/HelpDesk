@@ -33,7 +33,7 @@ const Footer = () => {
               rel="noopener noreferrer"
               target="_blank"
             >
-              Efren Hazaar Herrera Isaac
+              HelpDesk
             </a>
           </div>
         </Box>

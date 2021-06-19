@@ -8,12 +8,16 @@ import Register from "views/auth/Register.js";
 import Tables from "views/admin/Tables.js";
 import Clientes from "views/admin/Clientes";
 import Usuarios from "views/admin/Catalogos/Usuarios";
+import Tickets from "views/admin/Catalogos/Tickets";
+import Reportes from "views/admin/Catalogos/Reportes";
 // @material-ui/icons components
 import HomeIcon from '@material-ui/icons/Home';
 import Person from "@material-ui/icons/Person";
+import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import PeopleIcon from '@material-ui/icons/People';
+import DescriptionIcon from '@material-ui/icons/Description';
 
 var routes = [
   {
@@ -48,6 +52,22 @@ var routes = [
         component: Usuarios,
         layout: "/admin",
       },
+      {
+        path: "/tickets",
+        name: "Tickets",
+        icon: ConfirmationNumberIcon,
+        iconColor: "Error",
+        component: Tickets,
+        layout: "/admin",
+      },
+      {
+        path: "/reportes",
+        name: "Reportes",
+        icon: DescriptionIcon,
+        iconColor: "Error",
+        component: Reportes,
+        layout: "/admin",
+      }
     ]
   },
   {
