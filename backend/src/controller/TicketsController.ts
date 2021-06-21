@@ -30,8 +30,8 @@ class TicketsController {
     async create(req: Request, res: Response){
         const ticketsRepository = getRepository(tickets);
 
-        const {nombre, fecha, tipoTicket, status,  descripcion} = req.body;
-        const ticket = new tickets(nombre, fecha, tipoTicket, status, descripcion);
+        const {nombre, fecha, tipoTicket, status,  descripcion, idCliente, idUsuario} = req.body;
+        const ticket = new tickets(nombre, fecha, tipoTicket, status, descripcion, idCliente, idUsuario);
 
         try {
             await ticketsRepository.save(ticket);

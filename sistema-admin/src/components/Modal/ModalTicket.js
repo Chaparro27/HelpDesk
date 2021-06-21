@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 // @material-ui/core components
 import {
     Divider,
@@ -19,7 +19,8 @@ import { Controller, useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { Post } from "actions/persistenceActions";
+import { Get } from "actions/persistenceActions";
+import { PostTicket } from "actions/persistenceActions";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -49,14 +50,19 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const ModalTicket = () => {
+const ModalTicket = ({handleModalClose}) => {
     const classes = useStyles();
+
+    const [listusers, setListusers] = useState([]);
+    const [listclients, setListclients] = useState([]);
 
     const defaultValues = {
         nombre: "",
         fecha: "",
         status: 0,
         descripcion: "",
+        idCliente: 0,
+        idUsuario: 0,
         tipoTicket: "",
     };
     const schema = yup.object().shape({
@@ -64,6 +70,8 @@ const ModalTicket = () => {
         fecha: yup.date(),
         status: yup.boolean(),
         descripcion: yup.string(),
+        idCliente: yup.number(),
+        idUsuario: yup.number(),
         tipoTicket: yup.string(),
     });
     const { handleSubmit, formState: { errors }, control, reset } = useForm({
@@ -71,11 +79,19 @@ const ModalTicket = () => {
         defaultValues: defaultValues,
     });
 
+    useEffect(() => {
+        const gets = async () => {
+            await Get("user/").then(result => setListusers(result));
+            await Get("clients/").then(result => setListclients(result));
+        };
+        gets();
+    }, []); 
     const onSubmit = data => {
         console.log(data);
         
-        Post('tickets/create', data );
-        // reset(defaultValues);
+        PostTicket('tickets/create', data );
+        reset(defaultValues);
+        handleModalClose();
     }
     return (
         <>
@@ -166,6 +182,75 @@ const ModalTicket = () => {
                                     />
                                     <FormHelperText>
                                         <ErrorMessage errors={errors} name="tipoTicket" as="span" />
+                                    </FormHelperText>
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <FormControl
+                                    variant="filled"
+                                    component={Box}
+                                    width="100%"
+                                    marginBottom="1rem!important"
+                                >
+                                    <Controller
+                                        name="idCliente"
+                                        control={control}
+                                        render={({ field }) =>
+                                            <Select
+                                                labelId="clientes"
+                                                id="clientes"
+                                                value={field.value}
+                                                onChange={(e) => field.onChange(field.value = e.target.value)}
+                                                >
+                                                <MenuItem value={0}>
+                                                    <em>Selecciona una opcion</em>
+                                                </MenuItem>
+                                                {
+                                                    listclients.map( e => 
+                                                        <MenuItem value={e.idCliente}>
+                                                            { e.nombreClient }
+                                                        </MenuItem>
+                                                    )
+                                                }
+                                            </Select>
+                                        }
+                                    />
+                                    <FormHelperText>
+                                        <ErrorMessage errors={errors} name="idCliente" as="span" />
+                                    </FormHelperText>
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <FormControl
+                                    variant="filled"
+                                    component={Box}
+                                    width="100%"
+                                    marginBottom="1rem!important"
+                                >
+                                    <Controller
+                                        name="idUsuario"
+                                        control={control}
+                                        render={({ field }) =>
+                                            <Select
+                                                labelId="usuario"
+                                                id="usuario"
+                                                value={field.value}
+                                                onChange={(e) => field.onChange(field.value = e.target.value)}
+                                                >
+                                                <MenuItem value={0}>
+                                                    <em>Selecciona una opcion</em>
+                                                </MenuItem>
+                                                {
+                                                    listusers.map(e => 
+                                                        <MenuItem value={e.idUser}>
+                                                            { e.username }
+                                                        </MenuItem>)
+                                                }
+                                            </Select>
+                                        }
+                                    />
+                                    <FormHelperText>
+                                        <ErrorMessage errors={errors} name="idUsuario" as="span" />
                                     </FormHelperText>
                                 </FormControl>
                             </Grid>

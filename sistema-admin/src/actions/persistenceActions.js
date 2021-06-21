@@ -1,5 +1,6 @@
 import Axios from "axios";
 
+import Swal from 'sweetalert2'
 const produccion = false;
 const BaseUrl = produccion ? "https://resource-grupogit.herokuapp.com/" : "http://localhost:3000/";
 
@@ -30,6 +31,23 @@ export const Post = async( url, data ) => {
     
 }
 
+export const PostTicket = async( url, data ) => {
+    return await Axios.post(BaseUrl + url, data).then( resp => {
+        Swal.fire({
+            icon: 'success',
+            title: 'Your work has been saved',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }).catch( (error) => {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+        })
+    });
+    
+}
 export const Updating = async( url, data) => {
     await Axios.put(BaseUrl+url, data).then( resp => {
             

@@ -7,12 +7,14 @@ import { usuarios } from "./User_entity";
 @Entity()
 export class tickets {
 
-    constructor(nombre, fecha, tipoTicket, status, descripcion) {
+    constructor(nombre, fecha, tipoTicket, status, descripcion,idCliente, idUsuario) {
         this.nombre = nombre;
         this.fecha = fecha;
         this.tipoTicket = tipoTicket;
         this.status = status;
         this.descripcion = descripcion;
+        this.clientes = idCliente;
+        this.usuarios = idUsuario
     }
 
     @PrimaryGeneratedColumn()

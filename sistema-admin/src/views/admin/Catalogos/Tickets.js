@@ -54,7 +54,6 @@ const Tickets = () => {
           component={Box}
           marginTop="-15rem"
           className={classes.root}>
-           
           <Grid className={classes.paper} container spacing={3} >
               <Grid item xs={12}>
                 <IconButton
