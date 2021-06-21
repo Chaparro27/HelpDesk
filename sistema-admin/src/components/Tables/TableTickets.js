@@ -35,7 +35,7 @@ const  TableTickets = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-        const arr = [{}]
+      const arr = [{}]
       const resp = await GetClients('tickets/');
     //   const resp2 = await GetClients('clients/'); 
     //   arr.push(resp)
@@ -48,7 +48,7 @@ const  TableTickets = () => {
   function handleClick(id) {
       console.log(id, 'finalizaste los catalogos');
     // history.push(`/Accesorios/${rute}`);
-}
+  }
 
   return (
     <MaterialTable
@@ -57,14 +57,14 @@ const  TableTickets = () => {
       data={equipos}
       actions={[
         {
-            icon:'edit',
-            tooltip: 'Editar',
-            onClick: (event, rowData) => {handleClick(rowData.idTicket)}
+          icon:'edit',
+          tooltip: 'Editar',
+          onClick: (event, rowData) => {handleClick(rowData.idTicket)}
         }, rowData => ({
-            icon: 'add',
-            tooltip: 'Nuevo requerimiento',
-            onClick: (event, rowData) => {handleClick(rowData.idTicket)}
-          })
+          icon: 'add',
+          tooltip: 'Nuevo requerimiento',
+          onClick: (event, rowData) => {handleClick(rowData.idTicket)}
+        })
       ]}
       options={{
         actionsColumnIndex: -1,

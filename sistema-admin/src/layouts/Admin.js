@@ -25,6 +25,7 @@ import componentStyles from "assets/theme/layouts/admin.js";
 import ModalCustom from "components/Modal/ModalCustom";
 import ModalIsFirst from "components/Modal/ModalIsFirst";
 import { Get } from "actions/persistenceActions";
+import ModalTicket from "components/Modal/ModalTicket";
 
 const useStyles = makeStyles(componentStyles);
 
@@ -33,14 +34,16 @@ const Admin = () => {
   const location = useLocation();
   const [cookies] = useCookies(['c_user']);
   const [listusers, setListusers] = useState([]);
+  const [listclients, setListclients] = useState([]);
 
   React.useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
-    const users = async () => {
+    const gets = async () => {
       await Get("user/").then(result => setListusers(result));
+      await Get("clients/").then(result => setListclients(result));
     };
-    users();
+    gets();
   }, [location]);
 
   const getRoutes = (routes) => {
@@ -131,10 +134,10 @@ const Admin = () => {
                 /> 
               : null
           }
-
           <Header 
             pathname={getBrandText(location.pathname)}  
-            users={listusers}/>
+            users={listusers}
+            clients={listclients} />
           <Switch>
             {getRoutes(routes)}
             <Redirect from="*" to="/admin/index" /> 

@@ -19,7 +19,7 @@ import CardStats from "components/Cards/CardStats.js";
 import componentStyles from "assets/theme/components/header.js";
 const useStyles = makeStyles(componentStyles);
 
-const Header = ({pathname, users}) => {
+const Header = ({pathname, users, clients}) => {
   const classes = useStyles();
   const theme = useTheme();
   return (
@@ -68,7 +68,7 @@ const Header = ({pathname, users}) => {
                     <Grid item sm={6} md={4} xs={12}>
                       <CardStats
                         subtitle="Clientes"
-                        title="50"
+                        title={clients.length}
                         icon={PieChart}
                         color="bgWarning"
                         footer={
