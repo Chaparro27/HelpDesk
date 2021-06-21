@@ -85,7 +85,6 @@ const ModalCliente = ( {handleModalClose} ) => {
     // const dispatch = useDispatch();
 
     const onSubmit = data => {
-        console.log(data)
         CreateClient(data, 'clients/create')
     }
 

@@ -19,6 +19,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { Post } from "actions/persistenceActions";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -59,8 +60,11 @@ const ModalTicket = () => {
         tipoTicket: "",
     };
     const schema = yup.object().shape({
-        // pass: yup.string().required('Contraseña es requerida'),
-        // confirmpass: yup.string().oneOf([yup.ref('pass'), null], 'Las contraseñas no son iguales'),
+        nombre: yup.string(),
+        fecha: yup.date(),
+        status: yup.boolean(),
+        descripcion: yup.string(),
+        tipoTicket: yup.string(),
     });
     const { handleSubmit, formState: { errors }, control, reset } = useForm({
         resolver: yupResolver(schema),
@@ -69,6 +73,8 @@ const ModalTicket = () => {
 
     const onSubmit = data => {
         console.log(data);
+        
+        Post('tickets/create', data );
         // reset(defaultValues);
     }
     return (
@@ -83,12 +89,6 @@ const ModalTicket = () => {
                     </Grid>
                     <Grid container className={classes.form}>
                         <Grid container item xs={12}>
-                            {/* <Grid item xs={12}>
-                                <Typography variant="body1" gutterBottom className={classes.center}>
-                                    Hola veo que eres nuevo en la plataforma,
-                                    ¿porque no perzonalisas tu contraseña?
-                                </Typography>
-                            </Grid> */}
                             <Grid item xs={12}>
                                 <FormControl
                                     variant="filled"
@@ -189,8 +189,8 @@ const ModalTicket = () => {
                                                 <MenuItem value="">
                                                     Selecciona una opcion
                                                 </MenuItem>
-                                                <MenuItem value={10}>Pendiente</MenuItem>
-                                                <MenuItem value={10}>Finalizado</MenuItem>
+                                                <MenuItem value={true}>Pendiente</MenuItem>
+                                                <MenuItem value={false}>Finalizado</MenuItem>
                                             </Select>
                                         }
                                     />

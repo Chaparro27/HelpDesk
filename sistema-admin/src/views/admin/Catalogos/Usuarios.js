@@ -23,11 +23,11 @@ const Usuarios = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-          const resp = await GetClients('user/');
-          setData(resp);        
+            const resp = await GetClients('user/');
+            setData(resp);        
         }
         fetchData();
-      }, []); 
+    }, []); 
 
     const body = (e) =>  
         <>

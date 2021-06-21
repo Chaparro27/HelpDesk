@@ -22,6 +22,17 @@ const useStyles = makeStyles((theme) => ({
       margin: 'auto',
       maxWidth: '90%',
     },
+    addicon: {
+        width: theme.spacing(4),
+        height: theme.spacing(4),
+        color: theme.palette.success.main,
+        [theme.breakpoints.up(2800)]:{
+            width: theme.spacing(5),
+        },
+    },
+    buttons: {
+        // margin: theme.spacing(0.5)
+    },
   }));
 const Tickets = () => {
 
@@ -43,17 +54,20 @@ const Tickets = () => {
           component={Box}
           marginTop="-15rem"
           className={classes.root}>
-            <IconButton
-              edge="start"
-              onClick={ handleModalopen }
-              handleModalClose ={handleModalClose}
-              className={ classes.buttons }
-              color="inherit" >
-                <AddCircleIcon  className={ classes.addicon } />
-            </IconButton>
+           
           <Grid className={classes.paper} container spacing={3} >
+              <Grid item xs={12}>
+                <IconButton
+                  edge="start"
+                  onClick={ handleModalopen }
+                  handleModalClose ={handleModalClose}
+                  className={ classes.buttons }
+                  color="inherit" >
+                    <AddCircleIcon  className={ classes.addicon } />
+                </IconButton>
+              </Grid>
               <Grid item xs={12} >
-              <TableTickets/>
+                <TableTickets/>
               </Grid>
           </Grid>
           
