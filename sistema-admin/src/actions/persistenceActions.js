@@ -3,7 +3,7 @@ import Axios from "axios";
 import Swal from 'sweetalert2'
 
 const produccion = true;
-const BaseUrl = produccion ? "https://git.heroku.com/backend-pruebas.git/" : "http://localhost:3000/";
+const BaseUrl = produccion ? "https://backend-pruebas.herokuapp.com/" : "http://localhost:3000/";
 
 export const ChargeData = ( url ) => {
     return async( ) => {
