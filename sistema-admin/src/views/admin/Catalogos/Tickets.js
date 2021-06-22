@@ -14,6 +14,7 @@ import { useSearch } from "Hooks/useSearch";
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ModalCustom from "components/Modal/ModalCustom";
 import ModalTicket from "components/Modal/ModalTicket";
+
 const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -74,6 +75,7 @@ const Tickets = () => {
             handleModalClose={ handleModalClose }
             openModal={ isCreating }
             component={ ModalTicket } />
+
         </Container>
 
     );

@@ -171,12 +171,12 @@ const ModalTicket = ({handleModalClose}) => {
                                                 value={field.value}
                                                 onChange={(e) => field.onChange(field.value = e.target.value)}
                                                 >
-                                                <MenuItem value={0}>
-                                                    <em>Selecciona una opcion</em>
-                                                </MenuItem>
-                                                <MenuItem value={10}>Ten</MenuItem>
-                                                <MenuItem value={20}>Twenty</MenuItem>
-                                                <MenuItem value={30}>Thirty</MenuItem>
+                                            <MenuItem value={0}>
+                                                <em>Asignar tipo</em>
+                                            </MenuItem>
+                                            <MenuItem value= "Atencion cliente" >Atención cliente</MenuItem>
+                                            <MenuItem value= "Mantenimeinto">Mantenimiento</MenuItem>
+                                            <MenuItem value= "General">General</MenuItem>
                                             </Select>
                                         }
                                     />
@@ -203,7 +203,7 @@ const ModalTicket = ({handleModalClose}) => {
                                                 onChange={(e) => field.onChange(field.value = e.target.value)}
                                                 >
                                                 <MenuItem value={0}>
-                                                    <em>Selecciona una opcion</em>
+                                                    <em>Asignar cliente</em>
                                                 </MenuItem>
                                                 {
                                                     listclients.map( e => 
@@ -238,7 +238,7 @@ const ModalTicket = ({handleModalClose}) => {
                                                 onChange={(e) => field.onChange(field.value = e.target.value)}
                                                 >
                                                 <MenuItem value={0}>
-                                                    <em>Selecciona una opcion</em>
+                                                    <em>Asignar encargado</em>
                                                 </MenuItem>
                                                 {
                                                     listusers.map(e => 
@@ -271,11 +271,9 @@ const ModalTicket = ({handleModalClose}) => {
                                                 value={field.value}
                                                 onChange={(e) => field.onChange(field.value = e.target.value)}
                                                 >
-                                                <MenuItem value="">
-                                                    Selecciona una opcion
+                                                <MenuItem value={false}>
+                                                    Pendiente
                                                 </MenuItem>
-                                                <MenuItem value={true}>Pendiente</MenuItem>
-                                                <MenuItem value={false}>Finalizado</MenuItem>
                                             </Select>
                                         }
                                     />

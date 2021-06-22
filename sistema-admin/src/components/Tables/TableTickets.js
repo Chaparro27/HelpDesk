@@ -2,7 +2,9 @@ import React, {useEffect} from 'react';
 import MaterialTable from 'material-table';
 import {useParams} from 'react-router-dom';
 import { GetClients,DeleteClients } from '../../actions/clientesActions';
+import ModalEditTicket from "components/Modal/ModalEditTicket";
 
+import Modal from '@material-ui/core/Modal';
 const  TableTickets = () => {
   const {IDequipo} = useParams()
   const [equipos, setEquipos] = React.useState([])
@@ -32,7 +34,17 @@ const  TableTickets = () => {
         field: "usuarios.name"
       }
   ];
+  const [open, setOpen] = React.useState(false);
+  const [idT, setID] =React.useState();
 
+  const handleOpen  = async (id) => {
+    await GetClients(`tickets/${id}`).then(result => setID(result));;
+    setOpen(true);
+  };
+ console.log(idT)
+  const handleClose = () => {
+    setOpen(false);
+  };
   useEffect(() => {
     const fetchData = async () => {
       const arr = [{}]
@@ -50,7 +62,17 @@ const  TableTickets = () => {
     // history.push(`/Accesorios/${rute}`);
   }
 
+
   return (
+    <div>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        <ModalEditTicket idT={idT}/>
+      </Modal>
     <MaterialTable
       title="Incidentes en curso"
       columns={columns}
@@ -59,7 +81,7 @@ const  TableTickets = () => {
         {
           icon:'edit',
           tooltip: 'Editar',
-          onClick: (event, rowData) => {handleClick(rowData.idTicket)}
+          onClick: (event, rowData) => {handleOpen(rowData.idTicket)}
         }, rowData => ({
           icon: 'add',
           tooltip: 'Nuevo requerimiento',
@@ -71,6 +93,7 @@ const  TableTickets = () => {
         exportButton: true
       }}
     />
+    </div>
   );
 }
 export default TableTickets;

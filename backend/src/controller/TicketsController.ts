@@ -20,7 +20,7 @@ class TicketsController {
         const ticketsRepository = getRepository(tickets);
 
         try {
-            const ticket = await ticketsRepository.findOneOrFail(id);
+            const ticket = await ticketsRepository.findOneOrFail(id, { relations: ["clientes", "usuarios"] });
             return res.send(ticket);
         } catch (e) {
             return res.status(404).json({ message: 'Nor result'});
