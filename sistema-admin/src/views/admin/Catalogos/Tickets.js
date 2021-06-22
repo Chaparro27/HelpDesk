@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
     paper: {
       margin: 'auto',
       maxWidth: '90%',
+      display: 'flex',
+      justifyContent: "center",
+      alignItems: "center",
     },
     addicon: {
         width: theme.spacing(4),

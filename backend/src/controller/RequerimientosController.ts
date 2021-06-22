@@ -9,7 +9,7 @@ class RequerimientosController {
 
     async all(req: Request, res: Response) {
         const requerimientosRepository = getRepository(requerimientos);
-        let requerimiento = await requerimientosRepository.find();
+        let requerimiento = await requerimientosRepository.find({ relations: ["tickets"] });
         return res.send(requerimiento);
     }
 
@@ -19,7 +19,7 @@ class RequerimientosController {
         const requerimientosRepository = getRepository(requerimientos);
 
         try {
-            const requerimientos = await requerimientosRepository.findOneOrFail(id);
+            const requerimientos = await requerimientosRepository.findOneOrFail(id, { relations: ["tickets"] });
             return res.send(requerimientos);
         } catch (e) {
             return res.status(404).json({ message: 'Nor result'});

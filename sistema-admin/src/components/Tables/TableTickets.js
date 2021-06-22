@@ -3,6 +3,7 @@ import MaterialTable from 'material-table';
 import {useParams} from 'react-router-dom';
 import { GetClients,DeleteClients } from '../../actions/clientesActions';
 import ModalEditTicket from "components/Modal/ModalEditTicket";
+import ModalRequerimiento from "components/Modal/ModalRequerimiento";
 
 import Modal from '@material-ui/core/Modal';
 const  TableTickets = () => {
@@ -35,13 +36,21 @@ const  TableTickets = () => {
       }
   ];
   const [open, setOpen] = React.useState(false);
+  const [op, setOp] = React.useState(false);
   const [idT, setID] =React.useState();
+
+  const handleOp  = async (id) => {
+    setID(id)
+    setOp(true);
+  };
+  const handleCl = () => {
+    setOp(false);
+  };
 
   const handleOpen  = async (id) => {
     await GetClients(`tickets/${id}`).then(result => setID(result));;
     setOpen(true);
   };
- console.log(idT)
   const handleClose = () => {
     setOpen(false);
   };
@@ -73,6 +82,14 @@ const  TableTickets = () => {
       >
         <ModalEditTicket idT={idT}/>
       </Modal>
+      <Modal
+        open={op}
+        onClose={handleCl}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        <ModalRequerimiento idT={idT}/>
+      </Modal>
     <MaterialTable
       title="Incidentes en curso"
       columns={columns}
@@ -85,7 +102,7 @@ const  TableTickets = () => {
         }, rowData => ({
           icon: 'add',
           tooltip: 'Nuevo requerimiento',
-          onClick: (event, rowData) => {handleClick(rowData.idTicket)}
+          onClick: (event, rowData) => {handleOp(rowData.idTicket)}
         })
       ]}
       options={{

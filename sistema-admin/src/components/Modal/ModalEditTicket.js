@@ -93,12 +93,12 @@ const ModalEditTicket = ({handleModalClose, idT} ) => {
     });
 
     const onSubmit = data => {
-        console.log(data, 'up');
-        
+        console.log(data, 'up');    
         PutClients(data, `tickets/update/${dat.idT.idTicket}`);
         reset(defaultValues);
         // handleModalClose();
     }
+    
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)} className={classes.root} autoComplete="off">
