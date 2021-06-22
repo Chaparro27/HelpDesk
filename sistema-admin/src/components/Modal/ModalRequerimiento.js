@@ -26,14 +26,11 @@ import * as yup from 'yup';
 
 const useStyles = makeStyles( theme => ({
     root: {
-        width: "1080px",
+        width: "390px",
         display:'flex',
         justifyContent: "center",
         alignItems: "center",
-        padding: theme.spacing(2),
-        [theme.breakpoints.down("sm")]:{
-            width: "80vw"
-        },
+        padding: theme.spacing(4),
     },
     center: {
         textAlign: 'center',
@@ -51,7 +48,7 @@ const useStyles = makeStyles( theme => ({
         },
     },
     select: { 
-        width: '100%',
+        // width: '100%',
     },
     input: {
         display: 'none',
@@ -67,7 +64,7 @@ const useStyles = makeStyles( theme => ({
     },
 }));
 
-const ModalRequerimiento = ( {handleCl, idT} ) => {
+const ModalRequerimiento = ( {handleModalClose, idT} ) => {
    
     const classes = useStyles();
     const idtc = idT
@@ -92,17 +89,18 @@ const ModalRequerimiento = ( {handleCl, idT} ) => {
     // const dispatch = useDispatch();
 
     const onSubmit = data => {
-         CreateClient(data, 'requerimientos/create')
+        CreateClient(data, 'requerimientos/create')
         // console.log(data, 'datos')
         // handleCl()
         // console.log('data', data)
-      //  CreateClient(data, 'clients/create')
+        // CreateClient(data, 'clients/create')
+        handleModalClose();
     }
 
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)} className={classes.root} autoComplete="off">
-                <Grid container spacing={3} md={4}>
+                <Grid container spacing={3}>
                     <Grid item xs={12} >
                         <Typography variant="h4" gutterBottom className={classes.center}>
                             Registro requerimiento
@@ -173,8 +171,7 @@ const ModalRequerimiento = ( {handleCl, idT} ) => {
                             className={classes.buttonSave}
                             variant="contained"
                             color="primary"
-                            type="submit"
-                            onClick={handleCl} >
+                            type="submit" >
                             Agregar
                     </Button>
                     </Grid>

@@ -4,8 +4,8 @@ import {useParams} from 'react-router-dom';
 import { GetClients,DeleteClients } from '../../actions/clientesActions';
 import ModalEditTicket from "components/Modal/ModalEditTicket";
 import ModalRequerimiento from "components/Modal/ModalRequerimiento";
+import ModalCustom from 'components/Modal/ModalCustom';
 
-import Modal from '@material-ui/core/Modal';
 const  TableTickets = () => {
   const {IDequipo} = useParams()
   const [equipos, setEquipos] = React.useState([])
@@ -74,42 +74,41 @@ const  TableTickets = () => {
 
   return (
     <div>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-      >
-        <ModalEditTicket idT={idT}/>
-      </Modal>
-      <Modal
-        open={op}
-        onClose={handleCl}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-      >
-        <ModalRequerimiento idT={idT}/>
-      </Modal>
-    <MaterialTable
-      title="Incidentes en curso"
-      columns={columns}
-      data={equipos}
-      actions={[
-        {
-          icon:'edit',
-          tooltip: 'Editar',
-          onClick: (event, rowData) => {handleOpen(rowData.idTicket)}
-        }, rowData => ({
-          icon: 'add',
-          tooltip: 'Nuevo requerimiento',
-          onClick: (event, rowData) => {handleOp(rowData.idTicket)}
-        })
-      ]}
-      options={{
-        actionsColumnIndex: -1,
-        exportButton: true
-      }}
-    />
+      
+      <ModalCustom
+        handleModalClose={ handleClose }
+        openModal={ open }
+        component={ ModalEditTicket  }
+        idT={idT}
+        />
+      
+      <ModalCustom
+        handleModalClose={ handleCl }
+        openModal={ op }
+        component={ ModalRequerimiento } 
+        idT={idT}
+        />
+      
+      <MaterialTable
+        title="Incidentes en curso"
+        columns={columns}
+        data={equipos}
+        actions={[
+          {
+            icon:'edit',
+            tooltip: 'Editar',
+            onClick: (event, rowData) => {handleOpen(rowData.idTicket)}
+          }, rowData => ({
+            icon: 'add',
+            tooltip: 'Nuevo requerimiento',
+            onClick: (event, rowData) => {handleOp(rowData.idTicket)}
+          })
+        ]}
+        options={{
+          actionsColumnIndex: -1,
+          exportButton: true
+        }}
+      />
     </div>
   );
 }

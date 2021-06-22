@@ -96,7 +96,7 @@ const ModalEditTicket = ({handleModalClose, idT} ) => {
         console.log(data, 'up');    
         PutClients(data, `tickets/update/${dat.idT.idTicket}`);
         reset(defaultValues);
-        // handleModalClose();
+        handleModalClose();
     }
     
     return (

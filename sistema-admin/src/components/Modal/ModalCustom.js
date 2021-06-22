@@ -38,6 +38,7 @@ const ModalCustom = ({
     handleModalClose, 
     openModal, 
     component: Component,
+    ...rest
 }) => {
     const classes = useStyles();
 
@@ -65,7 +66,8 @@ const ModalCustom = ({
                                 <CloseIcon fontSize="small"/>
                             </IconButton>
                             <Component 
-                                handleModalClose={ handleModalClose } />
+                                handleModalClose={ handleModalClose }
+                                { ...rest } />
                         </div>
                     </Fade>
             </Modal>

@@ -1,12 +1,15 @@
 {
    "type": "postgres",
-   "host": "localhost",
+   "host": "ec2-54-145-224-156.compute-1.amazonaws.com",
    "port": 5432,
-   "username": "postgres",
-   "password": "123",
-   "database": "HelpDesk",
+   "username": "slvyvnnyuhenvm",
+   "password": "16f460e0ff35f5d2b2ad0d6b7a8be87e39eaa24c5536fcfecb939b7a017d5894",
+   "database": "d9jg8e7omca47g",
    "synchronize": true,
-   "logging": false,
+   "logging": false, 
+   "ssl": {
+      "rejectUnauthorized": false
+   },
    "entities": [
       "src/entity/**/*.ts"
    ],

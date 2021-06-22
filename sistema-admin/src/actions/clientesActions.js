@@ -1,8 +1,8 @@
 import  Swal from 'sweetalert2';
 import Axios from "axios";
 
-const produccion = false;
-const BaseUrl = produccion ? "https://resource-grupogit.herokuapp.com/" : "http://localhost:3000/";
+const produccion = true;
+const BaseUrl = produccion ? "https://git.heroku.com/backend-pruebas.git/" : "http://localhost:3000/";
 
 
 export const GetClients = async (url) => {
