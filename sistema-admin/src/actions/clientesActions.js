@@ -1,7 +1,7 @@
 import  Swal from 'sweetalert2';
 import Axios from "axios";
 
-const produccion = true;
+const produccion = false;
 const BaseUrl = produccion ? "https://backend-pruebas.herokuapp.com/" : "http://localhost:3000/";
 
 

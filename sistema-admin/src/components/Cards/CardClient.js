@@ -76,7 +76,7 @@ const CardClient = ({ item, isDelete }) => {
                                 fontSize="1.3rem"
                             >
                                 <Box fontSize="80%" fontWeight="400" component="small">
-                                    Información cliente
+                                    Información del empleado
                                 </Box>
                             </Box>
                         } 
@@ -95,7 +95,10 @@ const CardClient = ({ item, isDelete }) => {
                         {item.nombreClient}
                         </Typography>
                         <Typography  className={classes.name}>
-                        {item.telefono}
+                        {item.correo}
+                        </Typography>
+                        <Typography  className={classes.name}>
+                        {item.fecha}
                         </Typography>
                     </CardContent>
                 </Card>  

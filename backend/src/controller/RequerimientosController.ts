@@ -46,7 +46,7 @@ class RequerimientosController {
         const requerimientosRepository = getRepository(requerimientos);
 
         const {id} = req.params;
-        const {nombre, comentario, fecha} = req.body;
+        const {nombre, comentario, fecha, idTicket} = req.body;
 
         let requerimiento: requerimientos; 
 

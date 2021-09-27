@@ -17,13 +17,14 @@ const Usuarios = () => {
     const [data, setData] = React.useState([])
     const header = [
         "ID",
-        "Nombre de usuario",
-        "Correo"
+        "Nombre de cliente",
+        "Correo",
+        "Fecha de ingreso"
     ];
 
     useEffect(() => {
         const fetchData = async () => {
-            const resp = await GetClients('user/');
+            const resp = await GetClients('clients/');
             setData(resp);        
         }
         fetchData();
@@ -33,13 +34,16 @@ const Usuarios = () => {
         <>
             <TableRow>
                 <TableCell classes={{ root: classes.tableCellRoot }}>
-                    {e.idUser}
+                    {e.idCliente}
                 </TableCell>
                 <TableCell classes={{ root: classes.tableCellRoot }}>
-                    {e.username}
+                    {e.nombreClient}
                 </TableCell>
                 <TableCell classes={{ root: classes.tableCellRoot }}>
-                    {e.email}
+                    {e.correo}
+                </TableCell>
+                <TableCell classes={{ root: classes.tableCellRoot }}>
+                    {e.fecha}
                 </TableCell>
                 <ButtonsActionsMenu 
 

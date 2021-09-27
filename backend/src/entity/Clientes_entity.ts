@@ -5,9 +5,10 @@ import {MinLength, IsNotEmpty } from "class-validator";
 @Entity()
 export class clientes {
 
-    constructor(nombre, telefono) {
+    constructor(nombre, correo, fecha) {
         this.nombreClient = nombre;
-        this.telefono = telefono;
+        this.correo = correo;
+        this.fecha = fecha;
     }
 
     @PrimaryGeneratedColumn()
@@ -20,6 +21,10 @@ export class clientes {
 
     @Column()
     @IsNotEmpty()
-    telefono: string;
+    correo: string;
+
+    @Column()
+    @IsNotEmpty()
+    fecha: Date;
 
 }

@@ -29,8 +29,8 @@ class ClientesController {
     async create(req: Request, res: Response){
         const clientesRepository = getRepository(clientes);
 
-        const {nombreClient, telefono} = req.body;
-        const client = new clientes(nombreClient, telefono);
+        const {nombreClient, correo, fecha} = req.body;
+        const client = new clientes(nombreClient, correo, fecha);
 
         try {
             await clientesRepository.save(client);
@@ -46,14 +46,15 @@ class ClientesController {
         const clientesRepository = getRepository(clientes);
 
         const {id} = req.params;
-        const {nombreClient, telefono} = req.body;
+        const {nombreClient, correo, fecha} = req.body;
 
         let cliente: clientes; 
 
         try {
             cliente = await clientesRepository.findOneOrFail(id);
             cliente.nombreClient = nombreClient;
-            cliente.telefono = telefono;
+            cliente.correo = correo;
+            cliente.fecha = fecha;
 
         } catch (e) {
             return res.status(404).json({ message: 'Not found result' });

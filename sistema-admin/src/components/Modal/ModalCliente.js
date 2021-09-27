@@ -70,11 +70,13 @@ const ModalCliente = ( {handleModalClose} ) => {
     
     const defaultValues = {
         nombreClient: "",
-        telefono: "",
+        correo: "",
+        fecha: ""
     };
     const schema = yup.object().shape({
         nombreClient: yup.string().required('nombre es requerido'),
-        telefono: yup.string().required('numero es requerido'),
+        correo: yup.string().required('numero es requerido'),
+        fecha: yup.string().required('la fecha es requerida')
         // notRequired()
             // .matches(/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/, 'Phone number is not valid')
     });
@@ -94,7 +96,7 @@ const ModalCliente = ( {handleModalClose} ) => {
                 <Grid container spacing={3} md={4}>
                     <Grid item xs={12} >
                         <Typography variant="h4" gutterBottom className={classes.center}>
-                            Registro cliente
+                            Registro de empleado
                         </Typography>
                         <Divider />
                     </Grid>
@@ -110,7 +112,7 @@ const ModalCliente = ( {handleModalClose} ) => {
                                                 onChange={(e) => field.onChange(field.value = e.target.value) }
                                                 variant="outlined"
                                                 helperText={<ErrorMessage errors={errors} name="nombre" as="span" />}
-                                                label="Nombre del cliente"
+                                                label="Nombre del empleado"
                                             />
                                         } />
                                 </FormControl>
@@ -118,14 +120,33 @@ const ModalCliente = ( {handleModalClose} ) => {
                             <Grid item xs={12}>
                                 <FormControl className={classes.inputs} >
                                     <Controller
-                                        name="telefono"
+                                        name="correo"
                                         control={control}
                                         render={({field}) => 
                                             <TextField
                                                 onChange={(e) => field.onChange(field.value = e.target.value) }
                                                 variant="outlined"
-                                                helperText={<ErrorMessage errors={errors} name="numero" as="span" />}
-                                                label="Numero telefonico" />
+                                                helperText={<ErrorMessage errors={errors} name="correo" as="span" />}
+                                                label="Correo" />
+                                        }
+                                    />
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <FormControl className={classes.inputs} >
+                                    <Controller
+                                        name="fecha"
+                                        control={control}
+                                        render={({field}) => 
+                                            <TextField
+                                                onChange={(e) => field.onChange(field.value = e.target.value) }
+                                                variant="outlined"
+                                                type="date"
+                                                helperText={<ErrorMessage errors={errors} name="fecha" as="span" />}
+                                                label="Fecha de ingreso"
+                                                inputFormat="MM/dd/yyyy"
+                                                />
+                                                
                                         }
                                     />
                                 </FormControl>

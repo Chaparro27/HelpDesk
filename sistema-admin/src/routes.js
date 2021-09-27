@@ -30,7 +30,7 @@ var routes = [
   },
   {
     path: "/clientes",
-    name: "Clientes",
+    name: "Empleados",
     icon: AssignmentIndIcon,
     iconColor: "Primary",
     component: Clientes,
@@ -46,13 +46,13 @@ var routes = [
     List: [
       {
         path: "/usuarios",
-        name: "Usuarios",
+        name: "Lista empleados",
         icon: PeopleIcon,
         iconColor: "Error",
         component: Usuarios,
         layout: "/admin",
       },
-      {
+     {
         path: "/tickets",
         name: "Tickets",
         icon: ConfirmationNumberIcon,
