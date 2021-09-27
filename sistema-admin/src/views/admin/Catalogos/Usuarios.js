@@ -45,9 +45,7 @@ const Usuarios = () => {
                 <TableCell classes={{ root: classes.tableCellRoot }}>
                     {e.fecha}
                 </TableCell>
-                <ButtonsActionsMenu 
-
-                />
+                <ButtonsActionsMenu/>
             </TableRow>
         </>
     return (

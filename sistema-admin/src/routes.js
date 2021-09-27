@@ -44,30 +44,30 @@ var routes = [
     iconColor: "Primary",
     layout: "/admin",
     List: [
-      {
+  /*    {
         path: "/usuarios",
         name: "Lista empleados",
         icon: PeopleIcon,
         iconColor: "Error",
         component: Usuarios,
         layout: "/admin",
-      },
+      },*/
      {
-        path: "/tickets",
-        name: "Tickets",
-        icon: ConfirmationNumberIcon,
+        path: "/empleados",
+        name: "Lista de empleados",
+        icon: PeopleIcon,
         iconColor: "Error",
         component: Tickets,
         layout: "/admin",
       },
-      {
+  /*    {
         path: "/reportes",
         name: "Reportes",
         icon: DescriptionIcon,
         iconColor: "Error",
         component: Reportes,
         layout: "/admin",
-      }
+      }*/
     ]
   },
   {

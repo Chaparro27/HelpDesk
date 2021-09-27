@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import MaterialTable from 'material-table';
 import {useParams} from 'react-router-dom';
 import { GetClients,DeleteClients } from '../../actions/clientesActions';
-import ModalEditTicket from "components/Modal/ModalEditTicket";
+import ModalEmpleado from "components/Modal/ModalEmpleado";
 import ModalRequerimiento from "components/Modal/ModalRequerimiento";
 import ModalCustom from 'components/Modal/ModalCustom';
 
@@ -12,27 +12,19 @@ const  TableTickets = () => {
   const columns = [
     {
       title: "ID",
-      field: "idTicket"
+      field: "idCliente"
     },
     {
       title: "Nombre",
-      field: "nombre"
+      field: "nombreClient"
     },
     {
-      title: "Fecha",
-      field: "fecha"
+      title: "Correo",
+      field: "correo"
     },
     {
-        title: "Status",
-        field: "tipoTicket"
-      },
-      {
-        title: "Cliente",
-        field: "clientes.nombreClient"
-      },
-      {
-        title: "Encargado",
-        field: "usuarios.name"
+        title: "Fecha",
+        field: "fecha"
       }
   ];
   const [open, setOpen] = React.useState(false);
@@ -48,7 +40,7 @@ const  TableTickets = () => {
   };
 
   const handleOpen  = async (id) => {
-    await GetClients(`tickets/${id}`).then(result => setID(result));;
+    await GetClients(`clients/${id}`).then(result => setID(result));;
     setOpen(true);
   };
   const handleClose = () => {
@@ -57,7 +49,7 @@ const  TableTickets = () => {
   useEffect(() => {
     const fetchData = async () => {
       const arr = [{}]
-      const resp = await GetClients('tickets/');
+      const resp = await GetClients('clients/');
     //   const resp2 = await GetClients('clients/'); 
     //   arr.push(resp)
     //   arr.push(resp2)
@@ -78,31 +70,20 @@ const  TableTickets = () => {
       <ModalCustom
         handleModalClose={ handleClose }
         openModal={ open }
-        component={ ModalEditTicket  }
-        idT={idT}
-        />
-      
-      <ModalCustom
-        handleModalClose={ handleCl }
-        openModal={ op }
-        component={ ModalRequerimiento } 
+        component={ ModalEmpleado  }
         idT={idT}
         />
       
       <MaterialTable
-        title="Incidentes en curso"
+        title="Empleados"
         columns={columns}
         data={equipos}
         actions={[
           {
             icon:'edit',
             tooltip: 'Editar',
-            onClick: (event, rowData) => {handleOpen(rowData.idTicket)}
-          }, rowData => ({
-            icon: 'add',
-            tooltip: 'Nuevo requerimiento',
-            onClick: (event, rowData) => {handleOp(rowData.idTicket)}
-          })
+            onClick: (event, rowData) => {handleOpen(rowData.idCliente)}
+          }
         ]}
         options={{
           actionsColumnIndex: -1,

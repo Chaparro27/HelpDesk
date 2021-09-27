@@ -16,7 +16,8 @@ const useStyles = makeStyles(componentStyles);
 const ButtonsActionsMenu = () => {
     const classes = useStyles();
     const theme = useTheme();
-    
+    const [open, setOpen] = React.useState(false);
+
     const [anchorEl2, setAnchorEl2] = React.useState(null);
     const handleClick = (event) => {
         switch (event.currentTarget.getAttribute("aria-controls")) {
@@ -60,9 +61,7 @@ const ButtonsActionsMenu = () => {
                 open={Boolean(anchorEl2)}
                 onClose={handleClose}
             >
-                <MenuItem onClick={handleClose}>Eliminar</MenuItem>
-                <MenuItem onClick={handleClose}>Modificar</MenuItem>
-                <MenuItem onClick={handleClose}></MenuItem>
+                <MenuItem  onClick={setOpen}>Modificar</MenuItem>
             </Menu>
         </TableCell>
     );
